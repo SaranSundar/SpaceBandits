@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SpaceInvaders.GameCode;
 using SpaceInvaders.GameCode.Background;
 
 namespace SpaceInvaders
@@ -12,15 +13,15 @@ namespace SpaceInvaders
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        int screenWidth = 1000;
-        int screenHeight = 750;
-        BackgroundRenderer _backgroundRenderer;
+        BackgroundRenderer backgroundRenderer;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = screenWidth;
-            graphics.PreferredBackBufferHeight = screenHeight;
+            Constants.ScreenWidth = 1000;
+            Constants.ScreenHeight = 750;
+            graphics.PreferredBackBufferWidth = Constants.ScreenWidth;
+            graphics.PreferredBackBufferHeight = Constants.ScreenHeight;
             Content.RootDirectory = "Content";
         }
 
@@ -33,8 +34,6 @@ namespace SpaceInvaders
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            _backgroundRenderer = new BackgroundRenderer();
-            _backgroundRenderer.Initialize(screenWidth, screenHeight);
             base.Initialize();
         }
 
@@ -46,7 +45,8 @@ namespace SpaceInvaders
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _backgroundRenderer.LoadContent(Content);
+            backgroundRenderer = new BackgroundRenderer();
+            backgroundRenderer.LoadContent(Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -66,10 +66,11 @@ namespace SpaceInvaders
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            KeyboardState keyboard = Keyboard.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-                Keyboard.GetState().IsKeyDown(Keys.Escape))
+                keyboard.IsKeyDown(Keys.Escape))
                 Exit();
-            _backgroundRenderer.Update(gameTime);
+            backgroundRenderer.Update(gameTime, keyboard);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -86,7 +87,7 @@ namespace SpaceInvaders
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             
-            _backgroundRenderer.Draw(gameTime, spriteBatch);
+            backgroundRenderer.Draw(gameTime, spriteBatch);
             
             spriteBatch.End();
 
