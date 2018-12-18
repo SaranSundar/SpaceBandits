@@ -12,6 +12,7 @@ namespace SpaceInvaders.GameCode
         protected int screenWidth, screenHeight;
         protected Vector2 acceleration, velocity, position;
         protected double mass;
+        protected float rotation, rotationOffset;
 
         public PhysicsObject()
         {
@@ -25,6 +26,8 @@ namespace SpaceInvaders.GameCode
             this.velocity = velocity;
             this.position = position;
             this.mass = mass;
+            rotation = 0;
+            rotationOffset = 0;
         }
     }
 }

@@ -9,32 +9,31 @@ namespace SpaceInvaders.GameCode.Background
     internal class Panel : Sprite, IGameInterface
     {
 
-        public Panel(string fileName)
-        {
-            this.fileName = fileName;
-        }
+        public Panel(string fileName) : base(fileName, 0){}
 
-        public void Update(GameTime gameTime, KeyboardState keyboard)
+        public void Update(GameTime gameTime, KeyboardState keyboard, object player)
         {
             float elpasedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            float moveSpeed = (float)1000 * elpasedTime;
+            float moveSpeed = (float)moveAmount * elpasedTime;
+            var Player = (Player)(player);
+            //if (RightDown(keyboard))
+            //{
+            //    position.X += moveSpeed;
+            //}
+            //else if (LeftDown(keyboard))
+            //{
+            //    position.X -= moveSpeed;
+            //}
+            if (UpDown(keyboard))
+            {
+                //position.Y -= moveSpeed;
+                MoveEntity(moveSpeed, Player.Rotation, Player.RotationOffset);
 
-            if (keyboard.IsKeyDown(Keys.Right))
-            {
-                position.X += moveSpeed;
             }
-            else if (keyboard.IsKeyDown(Keys.Left))
+            else if (DownDown(keyboard))
             {
-                position.X -= moveSpeed;
-            }
-            if (keyboard.IsKeyDown(Keys.Up))
-            {
-                position.Y -= moveSpeed;
-
-            }
-            else if (keyboard.IsKeyDown(Keys.Down))
-            {
-                position.Y += moveSpeed;
+                //position.Y += moveSpeed;
+                MoveEntity(-moveSpeed, Player.Rotation, Player.RotationOffset);
             }
 
             destRect.X = (int)position.X;
@@ -52,8 +51,7 @@ namespace SpaceInvaders.GameCode.Background
 
         public void LoadContent(ContentManager content)
         {
-            sprite = content.Load<Texture2D>(fileName);
-            sourceRect = new Rectangle(0, 0, sprite.Width, sprite.Height);
+            LoadSprite(content);
             destRect = new Rectangle(0, 0, Constants.ScreenWidth, Constants.ScreenHeight);
             position = new Vector2(destRect.X, destRect.Y);
         }

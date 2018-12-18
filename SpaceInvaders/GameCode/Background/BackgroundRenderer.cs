@@ -29,11 +29,11 @@ namespace SpaceInvaders.GameCode.Background
             }
         }
 
-        public void Update(GameTime gameTime, KeyboardState keyboard)
+        public void Update(GameTime gameTime, KeyboardState keyboard, object player)
         {
             foreach (Panel panel in panels)
             {
-                panel.Update(gameTime, keyboard);
+                panel.Update(gameTime, keyboard, player);
             }
         }
 

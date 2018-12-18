@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SpaceInvaders.GameCode;
 using SpaceInvaders.GameCode.Background;
+using SpaceInvaders.GameCode.Characters;
 
 namespace SpaceInvaders
 {
@@ -14,6 +15,7 @@ namespace SpaceInvaders
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         BackgroundRenderer backgroundRenderer;
+        Player player;
 
         public Game1()
         {
@@ -34,6 +36,8 @@ namespace SpaceInvaders
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            backgroundRenderer = new BackgroundRenderer();
+            player = new Player("PNG/playerShip1_blue", MathHelper.ToRadians(90));
             base.Initialize();
         }
 
@@ -45,8 +49,8 @@ namespace SpaceInvaders
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            backgroundRenderer = new BackgroundRenderer();
             backgroundRenderer.LoadContent(Content);
+            player.LoadContent(Content);
             // TODO: use this.Content to load your game content here
         }
 
@@ -70,9 +74,9 @@ namespace SpaceInvaders
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 keyboard.IsKeyDown(Keys.Escape))
                 Exit();
-            backgroundRenderer.Update(gameTime, keyboard);
             // TODO: Add your update logic here
-
+            player.Update(gameTime, keyboard, null);
+            backgroundRenderer.Update(gameTime, keyboard, player);
             base.Update(gameTime);
         }
 
@@ -87,7 +91,7 @@ namespace SpaceInvaders
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap /* Must be set to Wrap */, null, null);
             backgroundRenderer.Draw(gameTime, spriteBatch);
-            
+            player.Draw(gameTime, spriteBatch);
             spriteBatch.End();
 
             base.Draw(gameTime);
