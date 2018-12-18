@@ -85,8 +85,7 @@ namespace SpaceInvaders
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
-            
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap /* Must be set to Wrap */, null, null);
             backgroundRenderer.Draw(gameTime, spriteBatch);
             
             spriteBatch.End();
