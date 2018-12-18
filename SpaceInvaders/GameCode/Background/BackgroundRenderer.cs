@@ -16,10 +16,10 @@ namespace SpaceInvaders.GameCode.Background
 
         public void LoadContent(ContentManager content)
         {
-            purpleSpaceTexture = content.Load<Texture2D>("purple");
-            darkPurpleSpaceTexture = content.Load<Texture2D>("darkPurple");
-            blueSpaceTexture = content.Load<Texture2D>("blue");
-            blackSpaceTexture = content.Load<Texture2D>("black");
+            purpleSpaceTexture = content.Load<Texture2D>("Backgrounds/purple");
+            darkPurpleSpaceTexture = content.Load<Texture2D>("Backgrounds/darkPurple");
+            blueSpaceTexture = content.Load<Texture2D>("Backgrounds/blue");
+            blackSpaceTexture = content.Load<Texture2D>("Backgrounds/black");
             panels = new ArrayList();
             panels.Add(new Panel(purpleSpaceTexture));
         }

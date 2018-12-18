@@ -48,7 +48,10 @@ namespace SpaceInvaders.GameCode.Background
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            //https://www.david-gouveia.com/scrolling-textures-in-xna
             spriteBatch.Draw(backgroundTexture, Vector2.Zero, destRect, Color.White);
+
+            //http://www.david-amador.com/2010/04/making-big-grass-tiles-in-xna/
         }
 
         public void LoadContent(ContentManager content)
