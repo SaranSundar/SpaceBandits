@@ -15,7 +15,7 @@ namespace SpaceInvaders.GameCode.Background
             this.backgroundTexture = backgroundTexture;
             this.sourceRect = sourceRect;
             this.destRect = destRect;
-           
+            position = new Vector2(destRect.X, destRect.Y);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -25,49 +25,50 @@ namespace SpaceInvaders.GameCode.Background
 
         public void LoadContent(ContentManager content)
         {
-            
+
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboard)
         {
             float elpasedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            int moveSpeed = 1;
-            for (int i = 0; i < 100; i++)
-            {
-                if (keyboard.IsKeyDown(Keys.Right))
-                {
-                    destRect.X -= moveSpeed;
-                    if (destRect.X + destRect.Width <= 0)
-                    {
-                        destRect.X = destRect.Width;
-                    }
+            float moveSpeed = (float)250;// * elpasedTime;
 
-                }
-                else if (keyboard.IsKeyDown(Keys.Left))
+            if (keyboard.IsKeyDown(Keys.Right))
+            {
+                position.X -= moveSpeed;
+                if (position.X + destRect.Width <= 0)
                 {
-                    destRect.X += moveSpeed;
-                    if (destRect.X >= Constants.ScreenWidth)
-                    {
-                        destRect.X = -destRect.Width;
-                    }
+                    position.X = destRect.Width;
                 }
-                if (keyboard.IsKeyDown(Keys.Up))
+
+            }
+            else if (keyboard.IsKeyDown(Keys.Left))
+            {
+                position.X += moveSpeed;
+                if (position.X >= Constants.ScreenWidth)
                 {
-                    destRect.Y += moveSpeed;
-                    if (destRect.Y >= Constants.ScreenHeight)
-                    {
-                        destRect.Y = -destRect.Height;
-                    }
-                }
-                else if (keyboard.IsKeyDown(Keys.Down))
-                {
-                    destRect.Y -= moveSpeed;
-                    if (destRect.Y + destRect.Height <= 0)
-                    {
-                        destRect.Y = destRect.Height;
-                    }
+                    position.X = -destRect.Width;
                 }
             }
+            if (keyboard.IsKeyDown(Keys.Up))
+            {
+                position.Y += moveSpeed;
+                if (position.Y >= Constants.ScreenHeight)
+                {
+                    position.Y = -destRect.Height;
+                }
+            }
+            else if (keyboard.IsKeyDown(Keys.Down))
+            {
+                position.Y -= moveSpeed;
+                if (position.Y + destRect.Height <= 0)
+                {
+                    position.Y = destRect.Height;
+                }
+            }
+
+            destRect.X = (int)position.X;
+            destRect.Y = (int)position.Y;
 
         }
     }
