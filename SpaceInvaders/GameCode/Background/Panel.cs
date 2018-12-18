@@ -10,8 +10,6 @@ namespace SpaceInvaders.GameCode.Background
         private Texture2D backgroundTexture;
         private Rectangle sourceRect, destRect;
 
-
-
         public Panel(Texture2D backgroundTexture, Rectangle sourceRect, Rectangle destRect)
         {
             this.backgroundTexture = backgroundTexture;
@@ -33,14 +31,44 @@ namespace SpaceInvaders.GameCode.Background
         public void Update(GameTime gameTime, KeyboardState keyboard)
         {
             float elpasedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (keyboard.IsKeyDown(Keys.Right))
+            int moveSpeed = 1;
+            for (int i = 0; i < 100; i++)
             {
-                destRect.X += 5;
+                if (keyboard.IsKeyDown(Keys.Right))
+                {
+                    destRect.X -= moveSpeed;
+                    if (destRect.X + destRect.Width <= 0)
+                    {
+                        destRect.X = destRect.Width;
+                    }
+
+                }
+                else if (keyboard.IsKeyDown(Keys.Left))
+                {
+                    destRect.X += moveSpeed;
+                    if (destRect.X >= Constants.ScreenWidth)
+                    {
+                        destRect.X = -destRect.Width;
+                    }
+                }
+                if (keyboard.IsKeyDown(Keys.Up))
+                {
+                    destRect.Y += moveSpeed;
+                    if (destRect.Y >= Constants.ScreenHeight)
+                    {
+                        destRect.Y = -destRect.Height;
+                    }
+                }
+                else if (keyboard.IsKeyDown(Keys.Down))
+                {
+                    destRect.Y -= moveSpeed;
+                    if (destRect.Y + destRect.Height <= 0)
+                    {
+                        destRect.Y = destRect.Height;
+                    }
+                }
             }
-            else if (keyboard.IsKeyDown(Keys.Left))
-            {
-                destRect.X -= 5;
-            }
+
         }
     }
 }

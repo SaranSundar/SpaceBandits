@@ -36,8 +36,32 @@ namespace SpaceInvaders.GameCode.Background
             for (int i = -1; i < 2; i++)
             {
                 // Left Middle Right
+                int panelWidth = Constants.ScreenWidth;
+                int panelHeight = Constants.ScreenHeight;
                 sourceRect = new Rectangle(0, 0, purpleSpaceTexture.Width, purpleSpaceTexture.Height);
-                destRect = new Rectangle((i*Constants.ScreenWidth), 0, Constants.ScreenWidth, Constants.ScreenHeight);
+                destRect = new Rectangle((i*panelWidth), 0, panelWidth, panelHeight);
+                Panel panel = new Panel(purpleSpaceTexture, sourceRect, destRect);
+                panel.LoadContent(content);
+                panels.Add(panel);
+            }
+            for (int i = -1; i < 2; i++)
+            {
+                // Left Middle Right
+                int panelWidth = Constants.ScreenWidth;
+                int panelHeight = Constants.ScreenHeight;
+                sourceRect = new Rectangle(0, 0, purpleSpaceTexture.Width, purpleSpaceTexture.Height);
+                destRect = new Rectangle((i * panelWidth), -panelHeight, panelWidth, panelHeight);
+                Panel panel = new Panel(purpleSpaceTexture, sourceRect, destRect);
+                panel.LoadContent(content);
+                panels.Add(panel);
+            }
+            for (int i = -1; i < 2; i++)
+            {
+                // Left Middle Right
+                int panelWidth = Constants.ScreenWidth;
+                int panelHeight = Constants.ScreenHeight;
+                sourceRect = new Rectangle(0, 0, purpleSpaceTexture.Width, purpleSpaceTexture.Height);
+                destRect = new Rectangle((i * panelWidth), panelHeight, panelWidth, panelHeight);
                 Panel panel = new Panel(purpleSpaceTexture, sourceRect, destRect);
                 panel.LoadContent(content);
                 panels.Add(panel);
