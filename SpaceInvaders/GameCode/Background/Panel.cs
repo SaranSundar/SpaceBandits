@@ -2,20 +2,16 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
+using SpaceInvaders.GameCode.Characters;
 
 namespace SpaceInvaders.GameCode.Background
 {
-    internal class Panel : BaseObject, IGameInterface
+    internal class Panel : Sprite, IGameInterface
     {
-        private Texture2D backgroundTexture;
-        private Rectangle sourceRect, destRect;
 
-        public Panel(Texture2D backgroundTexture)
+        public Panel(string fileName)
         {
-            this.backgroundTexture = backgroundTexture;
-            sourceRect = new Rectangle(0, 0, backgroundTexture.Width, backgroundTexture.Height);
-            destRect = new Rectangle(0, 0, Constants.ScreenWidth, Constants.ScreenHeight);
-            position = new Vector2(destRect.X, destRect.Y);
+            this.fileName = fileName;
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboard)
@@ -49,14 +45,17 @@ namespace SpaceInvaders.GameCode.Background
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //https://www.david-gouveia.com/scrolling-textures-in-xna
-            spriteBatch.Draw(backgroundTexture, Vector2.Zero, destRect, Color.White);
+            spriteBatch.Draw(sprite, Vector2.Zero, destRect, Color.White);
 
             //http://www.david-amador.com/2010/04/making-big-grass-tiles-in-xna/
         }
 
         public void LoadContent(ContentManager content)
         {
-
+            sprite = content.Load<Texture2D>(fileName);
+            sourceRect = new Rectangle(0, 0, sprite.Width, sprite.Height);
+            destRect = new Rectangle(0, 0, Constants.ScreenWidth, Constants.ScreenHeight);
+            position = new Vector2(destRect.X, destRect.Y);
         }
     }
 }

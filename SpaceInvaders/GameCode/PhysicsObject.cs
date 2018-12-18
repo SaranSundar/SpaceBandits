@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace SpaceInvaders.GameCode
 {
-    class BaseObject
+    class PhysicsObject
     {
         protected int screenWidth, screenHeight;
         protected Vector2 acceleration, velocity, position;
         protected double mass;
 
-        public BaseObject()
+        public PhysicsObject()
         {
         }
 
-        public BaseObject(int screenWidth, int screenHeight, Vector2 acceleration, Vector2 velocity, Vector2 position, double mass)
+        public PhysicsObject(int screenWidth, int screenHeight, Vector2 acceleration, Vector2 velocity, Vector2 position, double mass)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;

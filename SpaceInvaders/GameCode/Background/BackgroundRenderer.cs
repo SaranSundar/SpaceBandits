@@ -8,20 +8,25 @@ namespace SpaceInvaders.GameCode.Background
 {
     internal class BackgroundRenderer : IGameInterface
     {
-        private Texture2D purpleSpaceTexture;
-        private Texture2D darkPurpleSpaceTexture;
-        private Texture2D blueSpaceTexture;
-        private Texture2D blackSpaceTexture;
+        private Panel purpleSpacePanel;
+        //private Panel darkPurpleSpacePanel;
+        //private Panel blueSpacePanel;
+        //private Panel blackSpacePanel;
         private ArrayList panels;
 
         public void LoadContent(ContentManager content)
         {
-            purpleSpaceTexture = content.Load<Texture2D>("Backgrounds/purple");
-            darkPurpleSpaceTexture = content.Load<Texture2D>("Backgrounds/darkPurple");
-            blueSpaceTexture = content.Load<Texture2D>("Backgrounds/blue");
-            blackSpaceTexture = content.Load<Texture2D>("Backgrounds/black");
             panels = new ArrayList();
-            panels.Add(new Panel(purpleSpaceTexture));
+            purpleSpacePanel = new Panel("Backgrounds/purple");
+            //darkPurpleSpacePanel = new Panel("Backgrounds/darkPurple");
+            //blueSpacePanel = new Panel("Backgrounds/blue");
+            //blackSpacePanel = new Panel("Backgrounds/black");
+            panels.Add(purpleSpacePanel);
+
+            foreach (Panel panel in panels)
+            {
+                panel.LoadContent(content);
+            }
         }
 
         public void Update(GameTime gameTime, KeyboardState keyboard)
