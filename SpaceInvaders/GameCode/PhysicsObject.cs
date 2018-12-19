@@ -10,15 +10,16 @@ namespace SpaceInvaders.GameCode
     class PhysicsObject
     {
         protected int screenWidth, screenHeight;
-        protected Vector2 acceleration, velocity, position;
+        protected Vector2 position;
         protected double mass;
+        protected float acceleration, velocity;
         protected float rotation, rotationOffset;
 
         public PhysicsObject()
         {
         }
 
-        public PhysicsObject(int screenWidth, int screenHeight, Vector2 acceleration, Vector2 velocity, Vector2 position, double mass)
+        public PhysicsObject(int screenWidth, int screenHeight, float acceleration, float velocity, Vector2 position, double mass)
         {
             this.screenWidth = screenWidth;
             this.screenHeight = screenHeight;

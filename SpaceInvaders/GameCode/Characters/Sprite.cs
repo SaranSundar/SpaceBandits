@@ -14,7 +14,7 @@ namespace SpaceInvaders.GameCode.Characters
         protected float layerDepth = 1.0f;
         protected Vector2 scaleVector, originVector;
         protected float rotationSpeed;
-        protected float moveAmount = 1000;
+        protected float moveAmount = 0;
 
         public Sprite(string fileName, float rotationOffset)
         {
@@ -46,10 +46,8 @@ namespace SpaceInvaders.GameCode.Characters
 
         public void SetDest(int dX, int dY, int dW, int dH)
         {
-            //Console.WriteLine(dX + " " + dY + " " + dW + " " + dH);
             destRect = new Rectangle(dX, dY, dW, dH);
             position = new Vector2(destRect.X, destRect.Y);
-            //Console.WriteLine(destRect);
         }
 
         // This method applies the effects of movement to our entity.
@@ -82,7 +80,6 @@ namespace SpaceInvaders.GameCode.Characters
         {
             return keyboard.IsKeyDown(Keys.Down);
         }
-
         public float DegreeToRadian(double angle)
         {
             return (float)(Math.PI * angle / 180.0);
