@@ -38,6 +38,7 @@ namespace SpaceInvaders.GameCode.Characters
             }
         }
 
+
         public void Update(GameTime gameTime, KeyboardState keyboard, object none)
         {
             float elpasedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -50,17 +51,6 @@ namespace SpaceInvaders.GameCode.Characters
             else if (LeftDown(keyboard))
             {
                 rotation -= rotationSpeed;
-            }
-            if (UpDown(keyboard))
-            {
-                //accelerate here
-                //MoveEntity(moveSpeed, rotation);
-
-            }
-            else if (DownDown(keyboard))
-            {
-                //decccelerate here
-                //MoveEntity(-moveSpeed, rotation);
             }
         }
     }

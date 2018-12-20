@@ -53,12 +53,19 @@ namespace SpaceInvaders.GameCode.Characters
         // This method applies the effects of movement to our entity.
         // Speed is the number of pixels the object should move per call.
         //https://gamedev.stackexchange.com/questions/50793/moving-a-sprite-in-the-direction-its-facing-xna
-        public void MoveEntity(float speed, float rotation, float rotationOffset)
+        public void UpdateDirection(float rotation, float rotationOffset, KeyboardState keyboard)
         {
-            Vector2 direction = new Vector2((float)Math.Cos(rotation - rotationOffset),
-                                            (float)Math.Sin(rotation - rotationOffset));
-            direction.Normalize();
-            position += direction * speed;
+            if (UpDown(keyboard))
+            {
+                direction.X = (float)Math.Cos(rotation - rotationOffset);
+                direction.Y = (float)Math.Sin(rotation - rotationOffset);
+                direction.Normalize();
+            }
+            else
+            {
+                direction.X = 0;
+                direction.Y = 0;
+            }
         }
 
         public bool RightDown(KeyboardState keyboard)
