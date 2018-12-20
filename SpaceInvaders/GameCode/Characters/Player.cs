@@ -8,18 +8,34 @@ namespace SpaceInvaders.GameCode.Characters
 {
     internal class Player : Sprite, IGameInterface
     {
-        public Player(string fileName, float rotationOffset) : base(fileName, rotationOffset){}
+
+        public Player(string fileName, float rotationOffset) : base(fileName, rotationOffset)
+        {
+            acceleration = 20f;
+            maxSpeed = 12f;
+            friction = 0.983f;
+        }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            DrawSprite(spriteBatch);
+            //DrawSprite(spriteBatch); // For some reason moves a little as it draws
+            spriteBatch.Draw(sprite, // Texture
+                drawPosition,      // Position
+                sourceRect,    // Source rectangle
+                Color.White,   // Color
+                rotation,      // Rotation
+                originVector,   // Origin
+                scaleVector,       // Scale
+                SpriteEffects.None,  // Mirroring effect
+                layerDepth);       // Depth
         }
 
         public void LoadContent(ContentManager content)
         {
             LoadSprite(content);
             SetDest(Constants.ScreenWidth / 2, Constants.ScreenHeight / 2, sprite.Width, sprite.Height);
-
+            drawPosition = new Vector2(Constants.ScreenWidth / 2, Constants.ScreenHeight / 2);
+            position = new Vector2(-500, -500);
         }
 
         public float Rotation
@@ -27,6 +43,14 @@ namespace SpaceInvaders.GameCode.Characters
             get
             {
                 return rotation;
+            }
+        }
+
+        public Vector2 DrawTranslation
+        {
+            get
+            {
+                return drawTranslation;
             }
         }
 
@@ -41,9 +65,9 @@ namespace SpaceInvaders.GameCode.Characters
 
         public void Update(GameTime gameTime, KeyboardState keyboard, object none)
         {
-            float elpasedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            float moveSpeed = (float)moveAmount * elpasedTime;
-
+            float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float moveSpeed = (float)moveAmount * elapsedTime;
+            drawTranslation = drawPosition - position;
             if (RightDown(keyboard))
             {
                 rotation += rotationSpeed;
@@ -52,6 +76,17 @@ namespace SpaceInvaders.GameCode.Characters
             {
                 rotation -= rotationSpeed;
             }
+            UpdateDirection(Rotation, RotationOffset, keyboard);
+            velocity += acceleration * direction * elapsedTime;
+            if (velocity.LengthSquared() > maxSpeed * maxSpeed)
+            {
+                velocity.Normalize();
+                velocity *= maxSpeed;
+            }
+            position += velocity;
+            velocity *= friction;
+            destRect.X = (int)position.X;
+            destRect.Y = (int)position.Y;
         }
     }
 }

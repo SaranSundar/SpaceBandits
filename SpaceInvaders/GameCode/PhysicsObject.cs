@@ -9,7 +9,6 @@ namespace SpaceInvaders.GameCode
 {
     class PhysicsObject
     {
-        protected int screenWidth, screenHeight;
         protected Vector2 velocity, position, direction;
         protected double mass;
         protected float acceleration, maxSpeed, friction;

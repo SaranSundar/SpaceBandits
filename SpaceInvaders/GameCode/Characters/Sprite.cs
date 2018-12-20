@@ -15,6 +15,7 @@ namespace SpaceInvaders.GameCode.Characters
         protected Vector2 scaleVector, originVector;
         protected float rotationSpeed;
         protected float moveAmount = 0;
+        protected Vector2 drawPosition, drawTranslation;
 
         public Sprite(string fileName, float rotationOffset)
         {
@@ -25,8 +26,9 @@ namespace SpaceInvaders.GameCode.Characters
 
         public void DrawSprite(SpriteBatch spriteBatch)
         {
+
             spriteBatch.Draw(sprite, // Texture
-                position,      // Position
+                drawTranslation + position,      // Position
                 sourceRect,    // Source rectangle
                 Color.White,   // Color
                 rotation,      // Rotation
@@ -47,7 +49,6 @@ namespace SpaceInvaders.GameCode.Characters
         public void SetDest(int dX, int dY, int dW, int dH)
         {
             destRect = new Rectangle(dX, dY, dW, dH);
-            position = new Vector2(destRect.X, destRect.Y);
         }
 
         // This method applies the effects of movement to our entity.
