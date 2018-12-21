@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SpaceInvaders.GameCode;
@@ -16,6 +17,7 @@ namespace SpaceInvaders
         SpriteBatch spriteBatch;
         BackgroundRenderer backgroundRenderer;
         Player player;
+        List<Asteroid> asteroids;
 
         public Game1()
         {
@@ -38,6 +40,7 @@ namespace SpaceInvaders
             // TODO: Add your initialization logic here
             backgroundRenderer = new BackgroundRenderer();
             player = new Player("PNG/playerShip1_blue", MathHelper.ToRadians(90));
+            asteroids = new List<Asteroid>();
             base.Initialize();
         }
 
@@ -51,6 +54,13 @@ namespace SpaceInvaders
             spriteBatch = new SpriteBatch(GraphicsDevice);
             backgroundRenderer.LoadContent(Content);
             player.LoadContent(Content);
+            Asteroid asteroid = new Asteroid("PNG/Meteors/meteorBrown_big1", 0);
+            asteroids.Add(asteroid);
+
+            foreach (Asteroid ast in asteroids)
+            {
+                ast.LoadContent(Content);
+            }
             // TODO: use this.Content to load your game content here
         }
 
@@ -77,6 +87,10 @@ namespace SpaceInvaders
             // TODO: Add your update logic here
             player.Update(gameTime, keyboard, null);
             backgroundRenderer.Update(gameTime, keyboard, player);
+            foreach(Asteroid asteroid in asteroids)
+            {
+                asteroid.Update(gameTime, keyboard, player);
+            }
             base.Update(gameTime);
         }
 
@@ -91,9 +105,16 @@ namespace SpaceInvaders
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap /* Must be set to Wrap */, null, null);
             backgroundRenderer.Draw(gameTime, spriteBatch);
-            player.Draw(gameTime, spriteBatch);
             spriteBatch.End();
+            spriteBatch.Begin();
 
+            player.Draw(gameTime, spriteBatch);
+            foreach (Asteroid asteroid in asteroids)
+            {
+                asteroid.Draw(gameTime, spriteBatch);
+            }
+
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

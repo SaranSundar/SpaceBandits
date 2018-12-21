@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,7 +16,8 @@ namespace SpaceInvaders.GameCode.Characters
         protected Vector2 scaleVector, originVector;
         protected float rotationSpeed;
         protected float moveAmount = 0;
-        protected Vector2 drawPosition, drawTranslation;
+        protected Vector2 drawPosition, drawTranslation, originTranslation;
+        protected List<Vector2> anchorPoints;
 
         public Sprite(string fileName, float rotationOffset)
         {
@@ -26,7 +28,6 @@ namespace SpaceInvaders.GameCode.Characters
 
         public void DrawSprite(SpriteBatch spriteBatch)
         {
-
             spriteBatch.Draw(sprite, // Texture
                 drawTranslation + position,      // Position
                 sourceRect,    // Source rectangle
@@ -38,6 +39,15 @@ namespace SpaceInvaders.GameCode.Characters
                 layerDepth);       // Depth
         }
 
+        public void TranslatePosition(Object player)
+        {
+            Player Player = (Player)player;
+            drawTranslation = Player.DrawTranslation;
+            drawPosition = position - drawTranslation;
+            destRect.X = (int)drawPosition.X;
+            destRect.Y = (int)drawPosition.Y;
+        }
+
         public void LoadSprite(ContentManager content)
         {
             sprite = content.Load<Texture2D>(fileName);
@@ -46,9 +56,17 @@ namespace SpaceInvaders.GameCode.Characters
             originVector = new Vector2(sprite.Width / 2 * scaleVector.X, sprite.Height / 2 * scaleVector.Y);
         }
 
+        public void LoadSprite(Texture2D sprite)
+        {
+            sourceRect = new Rectangle(0, 0, sprite.Width, sprite.Height);
+            scaleVector = new Vector2(1, 1);
+            originVector = new Vector2(sprite.Width / 2 * scaleVector.X, sprite.Height / 2 * scaleVector.Y);
+        }
+
         public void SetDest(int dX, int dY, int dW, int dH)
         {
             destRect = new Rectangle(dX, dY, dW, dH);
+            position = new Vector2(destRect.X, destRect.Y);
         }
 
         // This method applies the effects of movement to our entity.

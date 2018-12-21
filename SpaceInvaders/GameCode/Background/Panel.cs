@@ -14,11 +14,7 @@ namespace SpaceInvaders.GameCode.Background
         public void Update(GameTime gameTime, KeyboardState keyboard, object player)
         {
             float elapsedTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Player Player = (Player)player;
-            drawTranslation = Player.DrawTranslation;
-            drawPosition = position - drawTranslation;
-            destRect.X = (int)drawPosition.X;
-            destRect.Y = (int)drawPosition.Y;
+            TranslatePosition(player);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -32,8 +28,7 @@ namespace SpaceInvaders.GameCode.Background
         public void LoadContent(ContentManager content)
         {
             LoadSprite(content);
-            destRect = new Rectangle(0, 0, Constants.ScreenWidth, Constants.ScreenHeight);
-            position = new Vector2(destRect.X, destRect.Y);
+            SetDest(0, 0, Constants.ScreenWidth, Constants.ScreenHeight);
         }
     }
 }
