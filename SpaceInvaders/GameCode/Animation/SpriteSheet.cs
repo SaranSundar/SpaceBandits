@@ -44,11 +44,21 @@ namespace SpaceInvaders.GameCode.Animation
             if (anything is Player)
             {
                 Player Player = ((Player)anything);
-                position = Player.AnchorPoints[0];
+                position = Player.Position;
+
+                //approach1 = take difference between anchor point and player position
+                //approach2 = make offset place u at anchor point
+
+
                 //position = Player.Position;
                 rotation = Player.Rotation;
-                originVector = new Vector2(destRect.Width/2, destRect.Height/2);
+                //rotation += MathHelper.ToRadians(180);
+                //originVector = new Vector2(0, 0);
+                //originVector = Player.OriginVector - Player.AnchorPoints[0];
+                originVector = new Vector2(Player.OriginVector.X - Player.AnchorPoints[0].X + sourceRect.Width/2,
+                Player.OriginVector.Y - Player.AnchorPoints[0].Y);
                 //originVector = new Vector2(sourceRect.Width * (.50f), -(sourceRect.Height) * (1.2f));
+                //originVector = new Vector2(7, 70);
                 TranslatePosition(anything);
             }
         }

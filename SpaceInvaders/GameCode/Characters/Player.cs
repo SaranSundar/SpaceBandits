@@ -45,7 +45,7 @@ namespace SpaceInvaders.GameCode.Characters
             position += velocity;
             for (int i=0;i<anchorPoints.Count;i++)
             {
-                anchorPoints[i] += velocity;
+                //anchorPoints[i] += velocity;
             }
             velocity *= friction;
             destRect.X = (int)position.X;
@@ -75,7 +75,7 @@ namespace SpaceInvaders.GameCode.Characters
             drawPosition = new Vector2(Constants.ScreenWidth / 2, Constants.ScreenHeight / 2);
             position = new Vector2(-500, -500);
             anchorPoints = new List<Vector2>();
-            anchorPoints.Add(new Vector2(position.X, position.Y));
+            anchorPoints.Add(new Vector2(destRect.Width/2,destRect.Height));
             engineAnimation.LoadContent(content);
         }
 
