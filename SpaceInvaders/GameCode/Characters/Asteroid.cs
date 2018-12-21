@@ -32,13 +32,7 @@ namespace SpaceInvaders.GameCode.Characters
             }
             position += velocity;
             velocity *= friction;
-            destRect.X = (int)position.X;
-            destRect.Y = (int)position.Y;
             Player Player = (Player)player;
-            //if (keyboard.IsKeyDown(Keys.D))
-            //{
-            //    Console.WriteLine(Player.DestRect + " " + destRect);
-            //}
             if (Player.DestRect.Intersects(destRect))
             {
                 Vector2 playerVelocity = Player.VelocityVector;

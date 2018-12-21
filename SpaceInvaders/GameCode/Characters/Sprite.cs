@@ -11,12 +11,12 @@ namespace SpaceInvaders.GameCode.Characters
     {
         protected Texture2D sprite;
         protected string fileName;
-        protected Rectangle sourceRect, destRect;
+        protected Rectangle sourceRect, destRect, drawRect;
         protected float layerDepth = 1.0f;
         protected Vector2 scaleVector, originVector;
         protected float rotationSpeed;
         protected float moveAmount = 0;
-        protected Vector2 drawPosition, drawTranslation, originTranslation;
+        protected Vector2 drawPosition, drawTranslation;
         protected List<Vector2> anchorPoints;
 
         public Sprite(string fileName, float rotationOffset)
@@ -44,8 +44,10 @@ namespace SpaceInvaders.GameCode.Characters
             Player Player = (Player)player;
             drawTranslation = Player.DrawTranslation;
             drawPosition = position - drawTranslation;
-            destRect.X = (int)drawPosition.X;
-            destRect.Y = (int)drawPosition.Y;
+            drawRect.X = (int)drawPosition.X;
+            drawRect.Y = (int)drawPosition.Y;
+            destRect.X = (int)position.X;
+            destRect.Y = (int)position.Y;
         }
 
         public void LoadSprite(ContentManager content)
@@ -67,6 +69,7 @@ namespace SpaceInvaders.GameCode.Characters
         {
             destRect = new Rectangle(dX, dY, dW, dH);
             position = new Vector2(destRect.X, destRect.Y);
+            drawRect = new Rectangle(dX, dY, dW, dH);
         }
 
         // This method applies the effects of movement to our entity.

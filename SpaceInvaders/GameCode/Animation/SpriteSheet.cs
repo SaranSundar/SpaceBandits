@@ -45,20 +45,9 @@ namespace SpaceInvaders.GameCode.Animation
             {
                 Player Player = ((Player)anything);
                 position = Player.Position;
-
-                //approach1 = take difference between anchor point and player position
-                //approach2 = make offset place u at anchor point
-
-
-                //position = Player.Position;
                 rotation = Player.Rotation;
-                //rotation += MathHelper.ToRadians(180);
-                //originVector = new Vector2(0, 0);
-                //originVector = Player.OriginVector - Player.AnchorPoints[0];
-                originVector = new Vector2(Player.OriginVector.X - Player.AnchorPoints[0].X + sourceRect.Width/2,
-                Player.OriginVector.Y - Player.AnchorPoints[0].Y);
-                //originVector = new Vector2(sourceRect.Width * (.50f), -(sourceRect.Height) * (1.2f));
-                //originVector = new Vector2(7, 70);
+                originVector.X = Player.OriginVector.X - Player.AnchorPoints[0].X + sourceRect.Width / 2;
+                originVector.Y = Player.OriginVector.Y - Player.AnchorPoints[0].Y;
                 TranslatePosition(anything);
             }
         }
@@ -66,7 +55,6 @@ namespace SpaceInvaders.GameCode.Animation
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprites[frame], drawTranslation + position, null, Color.White, rotation, originVector, 1f, 0, 0);
-
         }
 
         public void LoadContent(ContentManager content)
@@ -88,7 +76,6 @@ namespace SpaceInvaders.GameCode.Animation
             sprite = sprites[0];
             LoadSprite(sprite);
             SetDest(Constants.ScreenWidth / 2, Constants.ScreenHeight / 2, (int)(sprite.Width * 1.5), (int)(sprite.Height * 1.5));
-            //originVector = new Vector2(0, 100);
         }
     }
 }
